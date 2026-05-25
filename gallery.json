@@ -1,0 +1,70 @@
+[
+    {
+        "title": "«Мустай Карим — певец добра и мира»",
+        "desc": "Час в честь народного поэта",
+        "icon": "fa-solid fa-book-open-reader",
+        "images": [
+            "images/news/28.jpg",
+            "images/news/14.jpg",
+            "images/news/15.jpg"
+        ]
+    },
+    {
+        "title": "Чтение книг Габдуллы Тукая",
+        "desc": "История любви длиною в 5 встреч",
+        "icon": "fa-solid fa-landmark",
+        "images": [
+            "images/news/12.1.jpg",
+            "images/news/12.2.jpg",
+            "images/news/12.3.jpg",
+            "images/news/12.4.jpg"
+        ]
+    },
+    {
+        "title": "Мастер класс для детей",
+        "desc": "Посвященный дню гос. флага",
+        "icon": "fa-solid fa-child",
+        "images": [
+            "images/news/25.1.jpg",
+            "images/news/25.2.jpg",
+            "images/news/25.3.jpg",
+            "images/news/25.4.jpg"
+        ]
+    },
+    {
+        "title": "День памяти жертв Холокоста",
+        "desc": "«Помнить и никогда не забывать!»",
+        "icon": "fa-solid fa-microphone",
+        "images": [
+            "images/news/18.jpg",
+            "images/news/10.jpg"
+        ]
+    },
+    {
+        "title": "\"Чехов с нами\"",
+        "desc": "Час, посвященный великому поэту",
+        "icon": "fa-solid fa-warehouse",
+        "images": [
+            "images/news/19.jpg",
+            "images/news/16.jpg"
+        ]
+    },
+    {
+        "title": "Ночь искусств",
+        "desc": "Приурочена ко Дню народного единства",
+        "icon": "fa-solid fa-desktop",
+        "images": [
+            "images/news/27.jpg",
+            "images/news/20.jpg"
+        ]
+    },
+    {
+        "title": "День памяти героев Отечества",
+        "desc": "В честь 80-летия Победы",
+        "icon": "fa-solid fa-desktop",
+        "images": [
+            "images/news/30.3.jpg",
+            "images/news/30.2.jpg"
+        ]
+    }
+]

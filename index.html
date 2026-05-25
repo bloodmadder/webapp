@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Библиотека </title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<!-- так кнопки для галеры  -->
+<div class="gallery-modal" id="galleryModal">
+    <button class="gallery-close"
+            onclick="closeGallery()">
+        ✕
+    </button>
+
+    <button class="gallery-arrow left"
+            onclick="prevGalleryImage()">
+        ❮
+    </button>
+
+    <img id="galleryImage"
+         class="gallery-image">
+
+    <button class="gallery-arrow right"
+            onclick="nextGalleryImage()">
+        ❯
+    </button>
+</div>
+
+<!-- основа -->
+
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo" onclick="navigateTo('home')">
+                <i class="fa-solid fa-book"></i>
+                <span class="logo-text">Центральная библиотека<span class="logo-sub">Электронный билет</span></span>
+            </div>
+            <button class="burger" onclick="toggleMenu()">☰</button>
+            <nav class="nav" id="mainNav">
+                <a onclick="navigateTo('home')" class="active" data-nav="home">Главная</a>
+                <a onclick="navigateTo('catalog')" data-nav="catalog">Каталог</a>
+                <a onclick="navigateTo('news')" data-nav="news">Новости</a>
+                <a onclick="navigateTo('history')" data-nav="history">История</a>
+                <a onclick="navigateTo('diplomas')" data-nav="diplomas">Дипломы</a>
+                <a onclick="navigateTo('gallery')" data-nav="gallery">Галерея</a>
+                <a onclick="navigateTo('links')" data-nav="links">Полезные ссылки</a>
+                <a onclick="openAdminLogin()" class="admin-link">Для сотрудников</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="section active" id="section-home">
+            <div class="hero">
+                <h1>Добро пожаловать в библиотеку</h1>
+                <p>Введите номер читательского билета, чтобы просмотреть историю взятых книг.</p>
+                <div class="ticket-search">
+                    <input type="text" id="ticketSearchInput" placeholder="Например: Б-2024-0001" onkeypress="if(event.key==='Enter')searchTicket()">
+                    <button class="btn btn-primary" onclick="searchTicket()"><i class="fa-solid fa-magnifying-glass"></i> Найти билет</button>
+                </div>
+            </div>
+            <h2 class="section-title">Популярные книги</h2>
+            <div class="catalog-grid" id="homeCatalogPreview"></div>
+            <div style="text-align:center; margin-top:16px;">
+                <button class="btn btn-outline" onclick="navigateTo('catalog')">Открыть полный каталог</button>
+            </div>
+            <div class="wish-section">
+                <h3>Ваши пожелания</h3>
+                <p style="color:var(--text-light);">Расскажите, какие книги вы хотели бы видеть в нашей библиотеке</p>
+                <form class="wish-form" onsubmit="submitWish(event)">
+                    <input type="text" id="wishName" placeholder="Ваше имя" required>
+                    <input type="text" id="wishContact" placeholder="Телефон или email">
+                    <textarea id="wishText" placeholder="Текст пожелания..." required></textarea>
+                    <button type="submit" class="btn btn-primary">Отправить пожелание</button>
+                </form>
+            </div>
+        </section>
+
+ <section class="section" id="section-catalog">
+
+    <h2 class="section-title">
+        Каталог книг
+    </h2>
+
+    <div id="catalogGenres"></div>
+
+    <div style="
+        display:flex;
+        justify-content:center;
+        margin-bottom:20px;">
+
+        <input
+            type="text"
+            id="catalogSearchInput"
+            placeholder="
+                Поиск по названию или автору"
+            oninput="renderCatalog()"
+            style="
+                padding:10px 20px;
+                width:300px;
+                border:2px solid var(--border);
+                border-radius:30px;"
+        >
+    </div>
+
+    <div
+        class="catalog-grid"
+        id="fullCatalog"
+    ></div>
+
+</section>
+
+        <section class="section" id="section-news">
+            <h2 class="section-title">Новости библиотеки</h2>
+            <div id="newsContainer"></div>
+        </section>
+
+        <section class="section" id="section-history">
+            <h2 class="section-title">История библиотеки</h2>
+            <div class="card" style="max-width:800px; margin:0 auto;">
+                <p style="margin-bottom:16px;">В 1917 году, после Октябрьской революции, в помещении, где раньше размещалась школа для детей Шаймурзинской знати, открыли избу-читальню. Здесь деревенские активисты Батталов Касыйм, Хисамутдинов Ибрагим, Камалов Кашаф, Макаев Ибрагим, Алиев Шакир, Абдульманов Яхъя, Сагитов Шариф и Ахтямов Рахимзян просвещали односельчан. В конце 1918 года изба-читальня функционировала в составе Нардома, потом в Районном доме социалистической культуры.</p>
+                <p style="margin-bottom:16px;">В 1924 году в фонде было около 200–300 экземпляров книг и журналов. На сегодняшний день в библиотеке работают 2 библиотекаря. Имеется около 19 000 экземпляров книг. Количество посетителей – 1 211 человек, посещений – 15 164, книговыдача – 25 347 экземпляров.</p>
+                <p style="margin-bottom:16px;">Библиотека несет культуру и просвещение. Большой популярностью пользуются мероприятия с элементами игры. Создан библиотечный аккаунт в социальной сети, где проходят чтения художественной литературы и прочие мероприятия.</p>
+            </div>
+        </section>
+
+        <section class="section" id="section-diplomas">
+            <h2 class="section-title">Дипломы и грамоты</h2>
+            <div class="catalog-grid" id="diplomasContainer"></div>
+        </section>
+
+        <section class="section" id="section-gallery">
+            <h2 class="section-title">Галерея</h2>
+            <p style="text-align:center; color:var(--text-light);">Фотографии мероприятий, выставок и читальных залов</p>
+            <div class="catalog-grid" id="galleryContainer"></div>
+        </section>  
+
+        <section class="section" id="section-links">
+            <h2 class="section-title">Полезные ссылки</h2>
+            <div class="catalog-grid" id="linksContainer"></div>
+        </section>
+
+        <section class="section" id="section-admin">
+            <div id="adminPanelContent" class="admin-panel"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Центральная библиотека. Все права защищены.</p>
+    </footer>
+
+    <div class="modal-overlay" id="ticketModalOverlay">
+        <div class="modal" id="ticketModal">
+            <button class="modal-close" onclick="closeTicketModal()">✕</button>
+            <div id="ticketModalContent"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="adminLoginOverlay">
+        <div class="modal" style="max-width:420px;">
+            <button class="modal-close" onclick="closeAdminLogin()">✕</button>
+            <h2>Вход для сотрудников</h2>
+            <form onsubmit="adminLogin(event)" style="display:flex; flex-direction:column; gap:14px;">
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" id="adminLoginInput" placeholder="Логин" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="adminPasswordInput" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Войти</button>
+                <p style="font-size:0.75rem; color:var(--text-muted); text-align:center;">Демо: admin / admin123</p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="bookModalOverlay">
+        <div class="modal" id="bookModal">
+            <button class="modal-close" onclick="closeBookModal()">✕</button>
+            <div id="bookModalContent"></div>
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+    <!-- объект с методами -->
+     <script> 
+        const API = {
+            books: () => fetch('/api/books').then(r => r.json()),
+            book: (id) => fetch(`/api/books/${id}`).then(r => r.json()),
+            readers: () => fetch('/api/readers').then(r => r.json()),
+            reader: (id) => fetch(`/api/readers/${id}`).then(r => r.json()),
+            readerByTicket: (ticket) => fetch(`/api/readers/ticket/${encodeURIComponent(ticket)}`).then(r => r.json()),
+            readerBorrows: (id) => fetch(`/api/borrowed/reader/${id}`).then(r => r.json()),
+            borrowed: () => fetch('/api/borrowed').then(r => r.json()),
+            news: () => fetch('/api/news').then(r => r.json()),
+            newsItem: (id) => fetch(`/api/news/${id}`).then(r => r.json()),
+            wishes: () => fetch('/api/wishes').then(r => r.json()),
+            addWish: (data) => fetch('/api/wishes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(r => r.json()),
+            deleteWish: (id) => fetch(`/api/wishes/${id}`, { method: 'DELETE', headers: { 'x-admin': 'admin123' } }).then(r => r.json()),
+            adminLogin: (login, password) => fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ login, password }) }).then(r => r.json()),
+            adminRequest: (url, method = 'GET', body = null) => {
+                const opts = { method, headers: { 'Content-Type': 'application/json', 'x-admin': 'admin123' } };
+                if (body) opts.body = JSON.stringify(body);
+                return fetch(url, opts).then(r => r.json());
+            }
+        };
+
+        let currentSection = 'home';
+        let isAdminLoggedIn = false;
+
+        function navigateTo(section) {
+            currentSection = section;
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('section-' + section);
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.nav a[data-nav]').forEach(a => a.classList.remove('active'));
+            const navLink = document.querySelector(`.nav a[data-nav="${section}"]`);
+            if (navLink) navLink.classList.add('active');
+            document.getElementById('mainNav').classList.remove('open');
+            window.location.hash = section;
+            renderSection(section);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderSection(section) {
+            switch (section) {
+                case 'home': renderHome(); break;
+                case 'catalog': renderCatalog(); break;
+                case 'news': renderNews(); break;
+                case 'history': break;
+                case 'diplomas': renderDiplomas(); break;
+                case 'gallery': renderGallery(); break;
+                case 'links': renderLinks(); break;
+                case 'admin': if (isAdminLoggedIn) renderAdminPanel(); else { showToast('Сначала войдите в систему'); navigateTo('home'); } break;
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('mainNav').classList.toggle('open');
+        }
+
+        function bookCardHTML(book) {
+            const isAvailable = book.available === 1;
+            return `
+            <div class="book-card" onclick="openBookModal(${book.id})">
+                ${book.cover_url ? `<img src="${escapeHTML(book.cover_url)}" alt="Обложка">` : '<div style="width:60px;height:90px;background:var(--accent-light);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);">?</div>'}
+                <div class="book-info">
+                    <div class="book-title">${escapeHTML(book.title)}</div>
+                    <div class="book-author">${escapeHTML(book.author)}</div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);">${book.year} · ${escapeHTML(book.genre)}</div>
+                    <span class="${isAvailable ? 'status-available' : 'status-borrowed'}">${isAvailable ? 'Доступна' : 'Занята'}</span>
+                </div>
+            </div>`;
+        }
+
+        async function renderHome() {
+            const books = await API.books();
+            document.getElementById('homeCatalogPreview').innerHTML = books.slice(0, 8).map(bookCardHTML).join('');
+        }
+
+let currentGenre = 'all';
+
+async function renderCatalog() {
+    const books =
+        await API.books();
+    const query = (
+        document.getElementById('catalogSearchInput')?.value || ''
+    ).toLowerCase();
+    const genres = [
+        'all',
+        ...new Set(
+            books.map(b => b.genre)
+        )
+    ];
+    const filtered =
+        books.filter(book => {
+            const matchesSearch =
+                book.title.toLowerCase().includes(query) ||
+                book.author.toLowerCase().includes(query);
+            const matchesGenre =
+                currentGenre === 'all' || book.genre === currentGenre;
+            return (matchesSearch && matchesGenre);
+        });
+
+    document
+        .getElementById('catalogGenres').innerHTML = `
+        <div class="catalog-genres">
+            ${genres.map(genre => `
+                <button
+                    class="
+                        genre-chip
+                        ${currentGenre === genre ? 'active' : ''}"
+                    onclick="
+                        currentGenre='${genre}';
+                        renderCatalog();"
+                >
+                    ${genre === 'all' ? 'Все' : escapeHTML(genre)}
+                </button>
+            `).join('')}
+        </div>
+    `;
+
+    document
+        .getElementById(
+            'fullCatalog'
+        ).innerHTML =
+        filtered
+            .map(bookCardHTML)
+            .join('');
+}
+
+        async function openBookModal(bookId) {
+            try {
+                const book = await API.book(bookId);
+                const isAvailable = book.available === 1;
+                document.getElementById('bookModalContent').innerHTML = `
+                    <h2 style="margin-bottom:10px;">${escapeHTML(book.title)}</h2>
+                    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                        ${book.cover_url ? `<div><img src="${escapeHTML(book.cover_url)}" alt="Обложка" style="max-width:150px; border-radius:8px;"></div>` : ''}
+                        <div style="flex:1;">
+                            <p><strong>Автор:</strong> ${escapeHTML(book.author)}</p>
+                            <p><strong>Год:</strong> ${book.year}</p>
+                            <p><strong>Жанр:</strong> ${escapeHTML(book.genre)}</p>
+                            <p><strong>Описание:</strong> <div style="white-space: pre-line;">${escapeHTML(book.description || 'Нет описания')}</div></p>
+                            <p><span class="${isAvailable ? 'status-available' : 'status-borrowed'}">${isAvailable ? 'Доступна' : 'Занята'}</span></p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('bookModalOverlay').classList.add('show');
+            } catch (e) { showToast('Ошибка загрузки книги'); }
+        }
+        function closeBookModal() { document.getElementById('bookModalOverlay').classList.remove('show'); }
+
+        async function searchTicket() {
+            const input = document.getElementById('ticketSearchInput').value.trim();
+            if (!input) { showToast('Введите номер билета'); return; }
+            try {
+                const reader = await API.readerByTicket(input);
+                showTicketModal(reader);
+            } catch (e) { showToast('Билет не найден'); }
+        }
+
+        async function showTicketModal(reader) {
+            const borrows = await API.readerBorrows(reader.id);
+            borrows.sort((a, b) => new Date(b.borrowDate) - new Date(a.borrowDate));
+            document.getElementById('ticketModalContent').innerHTML = `
+                <div class="ticket-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <div>
+                            <h2 style="margin-bottom:5px;">Читательский билет</h2>
+                            <span style="font-family:monospace; background:var(--accent-light); padding:4px 12px; border-radius:20px;">${escapeHTML(reader.ticketNumber)}</span>
+                        </div>
+                        <div style="color:var(--text-muted); font-size:0.85rem;">Электронная версия</div>
+                    </div>
+                    <p><strong>ФИО:</strong> ${escapeHTML(reader.fullName)}</p>
+                    <p><strong>Возраст:</strong> ${reader.age} лет</p>
+                    <p><strong>Телефон:</strong> ${escapeHTML(reader.phone)}</p>
+                    <p><strong>Email:</strong> ${escapeHTML(reader.email)}</p>
+                    <h4 style="margin-top:20px;">История выданных книг:</h4>
+                    ${borrows.length === 0 ? '<p>Нет записей</p>' : `
+                        <table class="ticket-books-table">
+                            <thead><tr><th>Книга</th><th>Автор</th><th>Дата выдачи</th><th>Дата возврата</th><th>Статус</th></tr></thead>
+                            <tbody>
+                                ${borrows.map(b => `
+                                    <tr>
+                                        <td><strong>${escapeHTML(b.bookTitle)}</strong></td>
+                                        <td>${escapeHTML(b.bookAuthor)}</td>
+                                        <td>${formatDate(b.borrowDate)}</td>
+                                        <td>${b.returnDate ? formatDate(b.returnDate) : '—'}</td>
+                                        <td><span class="${b.status === 'returned' ? 'status-available' : 'status-borrowed'}">${b.status === 'returned' ? 'Возвращена' : 'На руках'}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `}
+                </div>
+            `;
+            document.getElementById('ticketModalOverlay').classList.add('show');
+        }
+        function closeTicketModal() { document.getElementById('ticketModalOverlay').classList.remove('show'); }
+
+        //-------------рендер ньюс!!--------------
+
+        async function renderNews() {
+            const news = await API.news();
+            document.getElementById('newsContainer').innerHTML = news.map(n => `
+                <div class="card" style="margin-bottom:20px;">
+                    <h3>${escapeHTML(n.title)}</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">${formatDateTime(n.date)}</p>
+                    ${n.image ? `
+                        <div style="
+                            display:flex;
+                            flex-wrap:wrap;
+                            gap:10px;
+                            margin:10px 0;
+                        ">
+                            ${n.image.split(',').map((img, index) => `
+                                <img
+                                    src="${escapeHTML(img.trim())}"
+                                    alt="Изображение новости"
+                                    onclick='openNewsImages(
+                                        ${JSON.stringify(
+                                            n.image.split(",").map(img => img.trim())
+                                        )},
+                                        ${index}
+                                    )'
+                                    style="
+                                        width:200px;
+                                        border-radius:8px;
+                                        cursor:pointer;
+                                        transition:0.3s;
+                                        object-fit:cover;
+                                    "
+                                    onmouseover="
+                                        this.style.transform='scale(1.03)'
+                                    "
+                                    onmouseout="
+                                        this.style.transform='scale(1)'
+                                    "
+                                >
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    <p>${escapeHTML(n.text)}</p>
+                </div>
+            `).join('');
+        }
+
+        function openNewsImages(images, index) {
+            currentGalleryImages = images;
+            currentImageIndex = index;
+            updateSharedGallery();
+            document
+                .getElementById('galleryModal')
+                .style.display = 'flex';
+        }
+
+        //-------------рендер дипломас!!!-----------
+
+        let diplomasData = [];
+
+        function renderDiplomas() {
+            document.getElementById('diplomasContainer').innerHTML =
+                diplomasData.map((diploma, index) => `
+                    <div class="card gallery-card"
+                        onclick="openDiplomaGallery(${index})">
+                        <i class="${diploma.icon}"
+                            style=" font-size:3rem; color:var(--accent); margin-bottom:10px; ">
+                        </i>
+                        <h3>${escapeHTML(diploma.title)}</h3>
+                        <p style="color:var(--text-light);">
+                            ${escapeHTML(diploma.desc)}
+                        </p>
+                    </div>
+                `).join('');
+        }
+
+        async function loadDiplomas() {
+            const response =
+                await fetch('diplomas.json');
+            diplomasData =
+                await response.json();
+            renderDiplomas();
+        }
+
+        function openDiplomaGallery(index) {
+            currentImageIndex = 0;
+            currentGalleryImages =
+                diplomasData[index].images;
+            updateSharedGallery();
+            document
+                .getElementById('galleryModal')
+                .style.display = 'flex';
+        }
+
+        // ---------рендер галери!!-------
+
+        let galleryData = [];
+
+        function renderGallery() {
+            document.getElementById('galleryContainer').innerHTML =
+                galleryData.map((item, index) => `
+                    <div class="card gallery-card"
+                        onclick="openGallery(${index})">
+                        <i class="${item.icon}"
+                            style="font-size:4rem; color:var(--accent); margin-bottom:8px;">
+                        </i>
+                        <h3>${escapeHTML(item.title)}</h3>
+                        <p style="color:var(--text-light);">
+                            ${escapeHTML(item.desc)}
+                        </p>
+                    </div>
+                `).join('');
+
+        }
+
+        async function loadGallery() {
+            const response =
+                await fetch('gallery.json');
+            galleryData =
+                await response.json();
+            renderGallery();
+        }
+
+        let currentGalleryImages = [];
+        let currentImageIndex = 0;
+
+        function openGallery(index) {
+            currentImageIndex = 0;
+            currentGalleryImages = galleryData[index].images;
+            updateSharedGallery();
+            document
+                .getElementById('galleryModal')
+                .style.display = 'flex';
+        }
+
+        function closeGallery() {
+            document
+                .getElementById('galleryModal')
+                .style.display = 'none';
+        }
+
+        function updateSharedGallery() {
+            document
+                .getElementById('galleryImage')
+                .src =
+                currentGalleryImages[currentImageIndex];
+        }
+
+        function nextGalleryImage() {
+            currentImageIndex++;
+            if (currentImageIndex >= currentGalleryImages.length) {
+                currentImageIndex = 0;
+            }
+            updateSharedGallery();
+        }   
+
+        function prevGalleryImage() {
+            currentImageIndex--;
+            if (currentImageIndex < 0) {
+                currentImageIndex =
+                    currentGalleryImages.length - 1;
+            }
+            updateSharedGallery();
+        }
+
+
+        //-------рендер линкс!!-----
+
+        function renderLinks() {
+            const links = [
+                { title: 'Национальная электронная библиотека', url: 'https://rusneb.ru/', icon: 'fa-solid fa-book', desc: 'Доступ к оцифрованным изданиям' },
+                { title: 'ЛитРес', url: 'https://www.litres.ru/', icon: 'fa-solid fa-mobile-screen-button', desc: 'Электронные и аудиокниги' },
+                { title: 'Президентская библиотека', url: 'https://www.prlib.ru/', icon: 'fa-solid fa-building-columns', desc: 'Исторические документы' },
+                { title: 'КиберЛенинка', url: 'https://cyberleninka.ru/', icon: 'fa-solid fa-graduation-cap', desc: 'Научные статьи и публикации' },
+                { title: 'Сайт межпоселенческой библиотеки', url: 'https://droz-cb.ucoz.ru/', icon: 'fa-solid fa-book', desc: 'С. Ст. Дрожжаное' },
+                { title: 'Издательство Азбука', url: 'https://azbooka.ru/', icon: 'fa-solid fa-building-columns', desc: 'Сотни книг отличного качества' },
+                { title: 'Издательство АСТ', url: 'https://ast.ru/', icon: 'fa-solid fa-book', desc: 'Книги для широкой аудитории' }
+            ];
+
+            document.getElementById('linksContainer').innerHTML = links.map(link => `
+                <a href="${link.url}" target="_blank" rel="noopener" style="text-decoration:none; color:inherit;">
+                    <div class="card" style="text-align:center; cursor:pointer;">
+                        <i class="${link.icon}" style="font-size:2.5rem; color:var(--accent); margin-bottom:10px;"></i>
+                        <h3>${escapeHTML(link.title)}</h3>
+                        <p style="color:var(--text-light); font-size:0.9rem;">${escapeHTML(link.desc)}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        async function submitWish(e) {
+            e.preventDefault();
+            const name = document.getElementById('wishName').value.trim();
+            const contact = document.getElementById('wishContact').value.trim();
+            const text = document.getElementById('wishText').value.trim();
+            if (!name || !text) return;
+            try {
+                await API.addWish({ name, contact, text });
+                document.getElementById('wishName').value = '';
+                document.getElementById('wishContact').value = '';
+                document.getElementById('wishText').value = '';
+                showToast('Пожелание отправлено!');
+            } catch (e) { showToast('Ошибка отправки'); }
+        }
+
+        async function adminLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('adminLoginInput').value.trim();
+            const password = document.getElementById('adminPasswordInput').value.trim();
+            try {
+                const res = await API.adminLogin(login, password);
+                if (res.token) {
+                    isAdminLoggedIn = true;
+                    closeAdminLogin();
+                    showToast('Добро пожаловать, администратор!');
+                    navigateTo('admin');
+                } else {
+                    showToast('Неверные данные');
+                }
+            } catch (e) { showToast('Ошибка входа'); }
+        }
+        function openAdminLogin() { document.getElementById('adminLoginOverlay').classList.add('show'); }
+        function closeAdminLogin() { document.getElementById('adminLoginOverlay').classList.remove('show'); }
+        function adminLogout() { isAdminLoggedIn = false; showToast('Вы вышли'); navigateTo('home'); }
+
+        let adminActiveTab = 'books';
+        async function renderAdminPanel() {
+            const container = document.getElementById('adminPanelContent');
+            container.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2>Панель управления</h2>
+                    <button class="btn btn-danger btn-sm" onclick="adminLogout()">Выйти</button>
+                </div>
+                <div class="admin-tabs">
+                    <button class="admin-tab ${adminActiveTab==='books'?'active':''}" onclick="switchAdminTab('books')">Книги</button>
+                    <button class="admin-tab ${adminActiveTab==='readers'?'active':''}" onclick="switchAdminTab('readers')">Читатели</button>
+                    <button class="admin-tab ${adminActiveTab==='borrowed'?'active':''}" onclick="switchAdminTab('borrowed')">Выдачи</button>
+                    <button class="admin-tab ${adminActiveTab==='news'?'active':''}" onclick="switchAdminTab('news')">Новости</button>
+                    <button class="admin-tab ${adminActiveTab==='wishes'?'active':''}" onclick="switchAdminTab('wishes')">Пожелания</button>
+                </div>
+                <div id="adminTabContent"></div>
+            `;
+            renderAdminTabContent();
+        }
+
+        function switchAdminTab(tab) {
+            adminActiveTab = tab;
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.admin-tab:nth-child(${['books','readers','borrowed','news','wishes'].indexOf(tab)+1})`).classList.add('active');
+            renderAdminTabContent();
+        }
+
+        async function renderAdminTabContent() {
+            const container = document.getElementById('adminTabContent');
+            switch (adminActiveTab) {
+                case 'books': {
+                    const books = await API.books();
+                    container.innerHTML = `
+                        <button class="btn btn-primary btn-sm" onclick="showBookForm()" style="margin-bottom:15px;">+ Добавить книгу</button>
+                        <div id="bookFormContainer"></div>
+                        <table class="ticket-books-table">
+                            <thead><tr><th>ID</th><th>Название</th><th>Автор</th><th>Год</th><th>Доступна</th><th>Действия</th></tr></thead>
+                            <tbody>${books.map(b => `
+                                <tr>
+                                    <td>${b.id}</td><td>${escapeHTML(b.title)}</td><td>${escapeHTML(b.author)}</td><td>${b.year}</td>
+                                    <td>${b.available ? 'Да' : 'Нет'}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline" onclick="showBookForm(${b.id})">✏️</button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteBook(${b.id})">🗑️</button>
+                                    </td>
+                                </tr>
+                            `).join('')}</tbody>
+                        </table>`;
+                    break;
+                }
+                case 'readers': {
+                    const readers = await API.readers();
+                    container.innerHTML = `
+                        <button class="btn btn-primary btn-sm" onclick="showReaderForm()" style="margin-bottom:15px;">+ Добавить читателя</button>
+                        <div id="readerFormContainer"></div>
+                        <table class="ticket-books-table">
+                            <thead><tr><th>ID</th><th>Билет</th><th>ФИО</th><th>Телефон</th><th>Действия</th></tr></thead>
+                            <tbody>${readers.map(r => `
+                                <tr>
+                                    <td>${r.id}</td><td>${escapeHTML(r.ticketNumber)}</td><td>${escapeHTML(r.fullName)}</td><td>${escapeHTML(r.phone)}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline" onclick="showReaderForm(${r.id})">✏️</button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteReader(${r.id})">🗑️</button>
+                                    </td>
+                                </tr>`).join('')}</tbody>
+                        </table>`;
+                    break;
+                }
+                case 'borrowed': {
+                    const res = await API.borrowed();
+                    container.innerHTML = `
+                        <button class="btn btn-primary btn-sm" onclick="showBorrowForm()" style="margin-bottom:15px;">+ Выдать книгу</button>
+                        <div id="borrowFormContainer"></div>
+                        <table class="ticket-books-table">
+                            <thead><tr><th>ID</th><th>Читатель</th><th>Книга</th><th>Выдана</th><th>Возвращена</th><th>Действия</th></tr></thead>
+                            <tbody>${res.map(b => `
+                                <tr>
+                                    <td>${b.id}</td><td>${b.readerId}</td><td>${escapeHTML(b.bookTitle)}</td>
+                                    <td>${formatDate(b.borrowDate)}</td><td>${b.returnDate ? formatDate(b.returnDate) : '—'}</td>
+                                    <td>
+                                        ${b.status === 'borrowed' ? `<button class="btn btn-sm btn-success" onclick="returnBook(${b.id})">Вернуть</button>` : ''}
+                                        <button class="btn btn-sm btn-danger" onclick="deleteBorrow(${b.id})">🗑️</button>
+                                    </td>
+                                </tr>`).join('')}</tbody>
+                        </table>`;
+                    break;
+                }
+                case 'news': {
+                    const news = await API.news();
+                    container.innerHTML = `
+                        <button class="btn btn-primary btn-sm" onclick="showNewsForm()" style="margin-bottom:15px;">+ Добавить новость</button>
+                        <div id="newsFormContainer"></div>
+                        ${news.map(n => `
+                            <div class="card" style="margin-bottom:15px;">
+                                <strong>${escapeHTML(n.title)}</strong> <span style="color:var(--text-muted);">${formatDateTime(n.date)}</span>
+                                ${n.image ? `
+                                    <div style="
+                                        display:flex;
+                                        flex-wrap:wrap;
+                                        gap:10px;
+                                        margin:10px 0;
+                                    ">
+                                        ${n.image.split(',').map(img => `
+                                            <img
+                                                src="${escapeHTML(img.trim())}"
+                                                style="
+                                                    width:120px;
+                                                    border-radius:8px;
+                                                    object-fit:cover;"
+                                            >
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                <p>${escapeHTML(n.text)}</p>
+                                <button class="btn btn-sm btn-outline" onclick="showNewsForm(${n.id})">✏️</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteNews(${n.id})">🗑️</button>
+                            </div>
+                        `).join('')}`;
+                    break;
+                }
+                case 'wishes': {
+                    const wishes = await API.wishes();
+                    container.innerHTML = wishes.length === 0 ? '<p>Нет пожеланий</p>' : wishes.map(w => `
+                        <div class="card" style="margin-bottom:10px;">
+                            <strong>${escapeHTML(w.name)}</strong> (${formatDateTime(w.date)})<br>
+                            <small>${escapeHTML(w.contact)}</small>
+                            <p>${escapeHTML(w.text)}</p>
+                            <button class="btn btn-sm btn-danger" onclick="deleteWish(${w.id})">🗑️ Удалить</button>
+                        </div>
+                    `).join('');
+                    break;
+                }
+            }
+        }
+
+        // ----------- формы добавления/редактирования----
+        function showBookForm(editId = null) {
+            const container = document.getElementById('bookFormContainer');
+            const bookPromise = editId ? API.book(editId) : Promise.resolve({});
+            bookPromise.then(book => {
+                container.innerHTML = `
+                    <div class="card" style="margin-bottom:20px; background:var(--bg-warm);">
+                        <h3>${editId ? 'Редактировать книгу' : 'Добавить книгу'}</h3>
+                        <form onsubmit="saveBook(event, ${editId})">
+                            <div class="form-group"><label>Название</label><input type="text" id="bkTitle" value="${escapeHTML(book.title||'')}" required></div>
+                            <div class="form-group"><label>Автор</label><input type="text" id="bkAuthor" value="${escapeHTML(book.author||'')}" required></div>
+                            <div class="form-group"><label>Год</label><input type="number" id="bkYear" value="${book.year||''}"></div>
+                            <div class="form-group"><label>Жанр</label><input type="text" id="bkGenre" value="${escapeHTML(book.genre||'')}"></div>
+                            <div class="form-group"><label>Описание</label><textarea id="bkDesc">${escapeHTML(book.description||'')}</textarea></div>
+                            <div class="form-group"><label>URL обложки</label><input type="text" id="bkCover" value="${escapeHTML(book.cover_url||'')}"></div>
+                            <div class="form-group"><label>Доступна</label><select id="bkAvail"><option value="1" ${book.available !== 0 ? 'selected' : ''}>Да</option><option value="0" ${book.available === 0 ? 'selected' : ''}>Нет</option></select></div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form>
+                    </div>`;
+                container.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        async function saveBook(e, editId) {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('bkTitle').value,
+                author: document.getElementById('bkAuthor').value,
+                year: parseInt(document.getElementById('bkYear').value) || null,
+                genre: document.getElementById('bkGenre').value,
+                description: document.getElementById('bkDesc').value,
+                cover_url: document.getElementById('bkCover').value,
+                available: document.getElementById('bkAvail').value === '1'
+            };
+            try {
+                if (editId) await API.adminRequest(`/api/books/${editId}`, 'PUT', data);
+                else await API.adminRequest('/api/books', 'POST', data);
+                document.getElementById('bookFormContainer').innerHTML = '';
+                renderAdminPanel();
+                showToast('Книга сохранена');
+            } catch (e) { showToast('Ошибка сохранения'); }
+        }
+
+        async function deleteBook(id) {
+            if (confirm('Удалить книгу?')) {
+                await API.adminRequest(`/api/books/${id}`, 'DELETE');
+                renderAdminPanel();
+                showToast('Книга удалена');
+            }
+        }
+
+        function showReaderForm(editId = null) {
+            const container = document.getElementById('readerFormContainer');
+            const readerPromise = editId ? API.reader(editId) : Promise.resolve({});
+            readerPromise.then(reader => {
+                container.innerHTML = `
+                    <div class="card" style="margin-bottom:20px; background:var(--bg-warm);">
+                        <h3>${editId ? 'Редактировать читателя' : 'Добавить читателя'}</h3>
+                        <form onsubmit="saveReader(event, ${editId})">
+                            <div class="form-group"><label>Номер билета</label><input type="text" id="rdTicket" value="${escapeHTML(reader.ticketNumber||'')}" required></div>
+                            <div class="form-group"><label>ФИО</label><input type="text" id="rdName" value="${escapeHTML(reader.fullName||'')}" required></div>
+                            <div class="form-group"><label>Возраст</label><input type="number" id="rdAge" value="${reader.age||''}"></div>
+                            <div class="form-group"><label>Телефон</label><input type="text" id="rdPhone" value="${escapeHTML(reader.phone||'')}"></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="rdEmail" value="${escapeHTML(reader.email||'')}"></div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form>
+                    </div>`;
+                container.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        async function saveReader(e, editId) {
+            e.preventDefault();
+            const data = {
+                ticketNumber: document.getElementById('rdTicket').value,
+                fullName: document.getElementById('rdName').value,
+                age: parseInt(document.getElementById('rdAge').value) || null,
+                phone: document.getElementById('rdPhone').value,
+                email: document.getElementById('rdEmail').value
+            };
+            try {
+                if (editId) await API.adminRequest(`/api/readers/${editId}`, 'PUT', data);
+                else await API.adminRequest('/api/readers', 'POST', data);
+                document.getElementById('readerFormContainer').innerHTML = '';
+                renderAdminPanel();
+                showToast('Читатель сохранён');
+            } catch (e) { showToast('Ошибка сохранения'); }
+        }
+
+        async function deleteReader(id) {
+            if (confirm('Удалить читателя и все записи выдач?')) {
+                await API.adminRequest(`/api/readers/${id}`, 'DELETE');
+                renderAdminPanel();
+                showToast('Читатель удалён');
+            }
+        }
+
+        function showBorrowForm() {
+            const container = document.getElementById('borrowFormContainer');
+            Promise.all([API.readers(), API.books()]).then(([readers, books]) => {
+                container.innerHTML = `
+                    <div class="card" style="margin-bottom:20px; background:var(--bg-warm);">
+                        <h3>Выдать книгу</h3>
+                        <form onsubmit="saveBorrow(event)">
+                            <div class="form-group"><label>Читатель</label>
+                                <select id="brReader" required>
+                                    <option value="">Выберите читателя</option>
+                                    ${readers.map(r => `<option value="${r.id}">${escapeHTML(r.fullName)} (${escapeHTML(r.ticketNumber)})</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Книга</label>
+                                <select id="brBook" required>
+                                    <option value="">Выберите книгу</option>
+                                    ${books.filter(b => b.available).map(b => `<option value="${b.id}">${escapeHTML(b.title)} — ${escapeHTML(b.author)}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Дата выдачи</label><input type="date" id="brDate" value="${new Date().toISOString().split('T')[0]}" required></div>
+                            <button type="submit" class="btn btn-primary">Выдать</button>
+                        </form>
+                    </div>`;
+                container.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        async function saveBorrow(e) {
+            e.preventDefault();
+            const data = {
+                readerId: parseInt(document.getElementById('brReader').value),
+                bookId: parseInt(document.getElementById('brBook').value),
+                borrowDate: document.getElementById('brDate').value,
+                status: 'borrowed'
+            };
+            try {
+                await API.adminRequest('/api/borrowed', 'POST', data);
+                document.getElementById('borrowFormContainer').innerHTML = '';
+                renderAdminPanel();
+                showToast('Книга выдана');
+            } catch (e) { showToast('Ошибка выдачи'); }
+        }
+
+        async function returnBook(id) {
+            await API.adminRequest(`/api/borrowed/${id}/return`, 'PUT');
+            renderAdminPanel();
+            showToast('Книга возвращена');
+        }
+
+        async function deleteBorrow(id) {
+            if (confirm('Удалить запись о выдаче?')) {
+                await API.adminRequest(`/api/borrowed/${id}`, 'DELETE');
+                renderAdminPanel();
+                showToast('Запись удалена');
+            }
+        }
+
+        //--------НОВОСТИ--------
+
+        function showNewsForm(editId = null) {
+            const container = document.getElementById('newsFormContainer');
+            const newsPromise = editId ? API.newsItem(editId) : Promise.resolve({});
+            newsPromise.then(news => {
+                container.innerHTML = `
+                    <div class="card" style="margin-bottom:20px; background:var(--bg-warm);">
+                        <h3>${editId ? 'Редактировать новость' : 'Добавить новость'}</h3>
+                        <form onsubmit="saveNews(event, ${editId})">
+                            <div class="form-group"><label>Заголовок</label><input type="text" id="nwTitle" value="${escapeHTML(news.title||'')}" required></div>
+                            <div class="form-group"><label>Дата</label><input type="datetime-local" id="nwDate" value="${news.date ? news.date.replace(' ', 'T') : new Date().toISOString().slice(0,16)}" required></div>
+                            <div class="form-group"><label>Текст</label><textarea id="nwText">${escapeHTML(news.text||'')}</textarea></div>
+                            <div class="form-group"><label>URL изображения</label><textarea
+                                id="nwImage"
+                                rows="4"
+                                placeholder="images/news/1.jpg, images/news/2.jpg"
+                            >${escapeHTML(news.image || '')}</textarea></div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form>
+                    </div>`;
+                container.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+
+        async function saveNews(e, editId) {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('nwTitle').value,
+                date: document.getElementById('nwDate').value.replace('T', ' '),
+                text: document.getElementById('nwText').value,
+                image: document.getElementById('nwImage').value
+            };
+            try {
+                if (editId) await API.adminRequest(`/api/news/${editId}`, 'PUT', data);
+                else await API.adminRequest('/api/news', 'POST', data);
+                document.getElementById('newsFormContainer').innerHTML = '';
+                renderAdminPanel();
+                showToast('Новость сохранена');
+            } catch (e) { showToast('Ошибка сохранения'); }
+        }
+
+        async function deleteNews(id) {
+            if (confirm('Удалить новость?')) {
+                await API.adminRequest(`/api/news/${id}`, 'DELETE');
+                renderAdminPanel();
+                showToast('Новость удалена');
+            }
+        }
+
+        //---пожелания----
+        async function deleteWish(id) {
+            if (confirm('Удалить пожелание?')) {
+                try {
+                    await API.deleteWish(id);
+                    renderAdminPanel();
+                    showToast('Пожелание удалено');
+                } catch (e) { showToast('Ошибка удаления'); }
+            }
+        }
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[m]);
+        }
+        function formatDate(dateStr) {
+            if (!dateStr) return '—';
+            const [y,m,d] = dateStr.split('-');
+            return `${d}.${m}.${y}`;
+        }
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '—';
+            const [datePart, timePart] = dateStr.split(' ');
+            const [y,m,d] = (datePart || '').split('-');
+            const time = timePart ? ` ${timePart.slice(0,5)}` : '';
+            return `${d}.${m}.${y}${time}`;
+        }
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = msg;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        document.addEventListener('click', e => {
+            if (e.target.id === 'ticketModalOverlay') closeTicketModal();
+            if (e.target.id === 'adminLoginOverlay') closeAdminLogin();
+            if (e.target.id === 'bookModalOverlay') closeBookModal();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeTicketModal();
+                closeAdminLogin();
+                closeBookModal();
+            }
+        });
+
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById('section-' + hash)) navigateTo(hash);
+        });
+        function init() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) navigateTo(hash);
+            else renderHome();
+        }
+        loadGallery();
+        loadDiplomas();
+        init();
+    </script>
+</body>
+</html>

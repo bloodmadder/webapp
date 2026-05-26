@@ -52,7 +52,7 @@
     {
         "title": "Диплом победителя в VI Всероссийском конкурсе",
         "desc": "\"Тукайга мәхәббәт илә...\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-scroll",
         "images": [
             "images/diplomas/9.2.jpg"
         ]
@@ -60,7 +60,7 @@
     {
         "title": "Диплом победителя в конкурсе чтецов",
         "desc": "\"Читаем Джалиля\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-award",
         "images": [
             "images/diplomas/10.1.jpg",
             "images/diplomas/10.2.jpg",
@@ -70,7 +70,7 @@
     {
         "title": "Благодарственное письмо за участие в конкурсе",
         "desc": "\"Солдат альбомы - 2026\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-scroll",
         "images": [
             "images/diplomas/11.1.jpg",
             "images/diplomas/11.2.jpg"
@@ -79,7 +79,7 @@
     {
         "title": "Диплом лауреата III степени",
         "desc": "V Всероссийского конкурса инсценировок",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-award",
         "images": [
             "images/diplomas/12.2.jpg",
             "images/diplomas/12.1.jpg"
@@ -96,7 +96,7 @@
     {
         "title": "Диплом VII Международной сетевой акции",
         "desc": "\"Читаем о Блокаде\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-medal",
         "images": [
             "images/diplomas/14.jpg"
         ]
@@ -112,7 +112,7 @@
     {
         "title": "V Бөтенроссия \"Каз өмәсе\" фестивале",
         "desc": "IV номинация, I урын",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-medal",
         "images": [
             "images/diplomas/16.jpg"
         ]
@@ -120,7 +120,7 @@
     {
         "title": "Сертификат участника конкурса",
         "desc": "\"Джалиловские чтения\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-award",
         "images": [
             "images/diplomas/17.jpg"
         ]
@@ -128,7 +128,7 @@
     {
         "title": "Диплом участника XIII Международной акции",
         "desc": "\"День лермонтовской поэзии в библиотеке\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-scroll",
         "images": [
             "images/diplomas/18.jpg"
         ]
@@ -136,7 +136,7 @@
     {
         "title": "Диплом участника конкурса",
         "desc": "Посвященного сохранению исторической памяти",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-award",
         "images": [
             "images/diplomas/19.jpg"
         ]
@@ -152,7 +152,7 @@
     {
         "title": "Диплом победителя конкурса видеороликов",
         "desc": "\"Лучшая книга о Великой Отечественной войне\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-scroll",
         "images": [
             "images/diplomas/21.jpg"
         ]
@@ -160,7 +160,7 @@
     {
         "title": "V халыкара нәфис сүз телевизион бәйгесе",
         "desc": "Катнашу өчен рәхмәт хаты",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-medal",
         "images": [
             "images/diplomas/22.jpg"
         ]
@@ -168,7 +168,7 @@
     {
         "title": "Диплом участника Межрегиональной онлайн-акции",
         "desc": "\"Рамазан Байтимеров шигырьльрен укыйбыз\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-medal",
         "images": [
             "images/diplomas/23.jpg"
         ]
@@ -176,7 +176,7 @@
     {
         "title": "Диплом участника онлайн-акции",
         "desc": "\"Судьба героя\"",
-        "icon": "fa-solid fa-envelope-open-text",
+        "icon": "fa-solid fa-scroll",
         "images": [
             "images/diplomas/24.1.jpg",
             "images/diplomas/24.2.jpg"

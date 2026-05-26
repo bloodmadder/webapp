@@ -80,7 +80,7 @@ db.serialize(() => {
         ['Война и мир', 'Лев Толстой', 1869, 'Роман-эпопея', 'Шедевр мировой литературы, описывающий русское общество в эпоху наполеоновских войн.', 1, 'https://cv9.litres.ru/pub/c/cover_415/12345678.jpg'],
         ['Преступление и наказание', 'Фёдор Достоевский', 1866, 'Роман', 'История студента Раскольникова, совершившего убийство и его душевных терзаний.', 1, 'https://cv9.litres.ru/pub/c/cover_415/23456789.jpg'],
         ['Мастер и Маргарита', 'Михаил Булгаков', 1967, 'Роман', 'Сатирический роман о визите дьявола в Москву 1930-х годов.', 1, 'https://cv9.litres.ru/pub/c/cover_415/34567890.jpg'],
-        ['Тихий Дон', 'Михаил Шолохов', 1940, 'Роман-эпопея', 'Судьба донского казачества в годы Первой мировой и Гражданской войны.', 0, 'https://cv9.litres.ru/pub/c/cover_415/45678901.jpg'],
+        ['Тихий Дон', 'Михаил Шолохов', 1940, 'Роман-эпопея', 'Судьба донского казачества в годы Первой мировой и Гражданской войны.', 1, 'https://cv9.litres.ru/pub/c/cover_415/45678901.jpg'],
         ['Евгений Онегин', 'Александр Пушкин', 1833, 'Роман в стихах', 'Классический роман о любви, чести и разочаровании.', 1, 'https://cv9.litres.ru/pub/c/cover_415/56789012.jpg'],
         ['Герой нашего времени', 'Михаил Лермонтов', 1840, 'Роман', 'Психологический портрет молодого офицера Печорина.', 1, 'https://cv9.litres.ru/pub/c/cover_415/67890123.jpg'],
       ];
@@ -100,10 +100,10 @@ db.serialize(() => {
       const insertBorrowed = [
         [1, 1, '2024-01-15', '2024-02-15', 'returned'],
         [1, 3, '2024-03-01', '2024-03-20', 'returned'],
-        [1, 5, '2024-05-10', '', 'borrowed'],
+        [1, 5, '2024-05-10', '2024-06-10', 'returned'],
         [2, 2, '2024-06-01', '2024-06-18', 'returned'],
-        [2, 4, '2024-07-05', '', 'borrowed'],
-        [3, 6, '2024-08-12', '', 'borrowed']
+        [2, 4, '2024-07-05', '2024-08-05', 'returned'], 
+        [3, 6, '2024-08-12', '2024-09-12', 'returned']  
       ];
       const stmtB = db.prepare("INSERT INTO borrowed (readerId, bookId, borrowDate, returnDate, status) VALUES (?,?,?,?,?)");
       insertBorrowed.forEach(b => stmtB.run(b));
@@ -299,22 +299,42 @@ app.delete('/api/readers/:id', checkAdmin, (req, res) => {
   });
 });
 
-
 app.post('/api/borrowed', checkAdmin, (req, res) => {
   const { readerId, bookId, borrowDate, status } = req.body;
-  db.run("INSERT INTO borrowed (readerId, bookId, borrowDate, status) VALUES (?,?,?,?)",
-    [readerId, bookId, borrowDate, status || 'borrowed'], function(err) {
-    if (err) return res.status(500).json({error: err.message});
-    res.json({ id: this.lastID });
+  db.get("SELECT available FROM books WHERE id = ?", [bookId], (err, book) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!book) return res.status(404).json({ error: 'Книга не найдена' });
+    if (book.available !== 1) return res.status(400).json({ error: 'Книга уже выдана' });
+    db.run(
+      "INSERT INTO borrowed (readerId, bookId, borrowDate, status) VALUES (?,?,?,?)",
+      [readerId, bookId, borrowDate, status || 'borrowed'],
+      function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        db.run("UPDATE books SET available = 0 WHERE id = ?", [bookId], (err) => {
+          if (err) return res.status(500).json({ error: err.message });
+          res.json({ id: this.lastID });
+        });
+      }
+    );
   });
 });
 
 app.put('/api/borrowed/:id/return', checkAdmin, (req, res) => {
   const returnDate = new Date().toISOString().split('T')[0];
-  db.run("UPDATE borrowed SET returnDate = ?, status = 'returned' WHERE id = ?",
-    [returnDate, req.params.id], function(err) {
-    if (err) return res.status(500).json({error: err.message});
-    res.json({ changes: this.changes });
+  db.get("SELECT bookId FROM borrowed WHERE id = ?", [req.params.id], (err, borrow) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (!borrow) return res.status(404).json({ error: 'Запись не найдена' });
+    db.run(
+      "UPDATE borrowed SET returnDate = ?, status = 'returned' WHERE id = ?",
+      [returnDate, req.params.id],
+      function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        db.run("UPDATE books SET available = 1 WHERE id = ?", [borrow.bookId], (err) => {
+          if (err) return res.status(500).json({ error: err.message });
+          res.json({ changes: this.changes });
+        });
+      }
+    );
   });
 });
 

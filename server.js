@@ -40,13 +40,7 @@ db.serialize(() => {
     FOREIGN KEY (readerId) REFERENCES readers(id),
     FOREIGN KEY (bookId) REFERENCES books(id)
   )`);
-  db.run(`CREATE TABLE IF NOT EXISTS news (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    date TEXT NOT NULL,
-    text TEXT,
-    image TEXT
-  )`);
+  
   db.run(`CREATE TABLE IF NOT EXISTS wishes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -110,9 +104,9 @@ db.serialize(() => {
       stmtB.finalize();
 
       const insertNews = [
-        ['Открытие нового читального зала', '2025-12-20', 'С радостью сообщаем об открытии нового читального зала на 50 мест с современным освещением и доступом к Wi-Fi.', 'https://example.com/news1.jpg'],
-        ['Поступление новых книг', '2025-11-15', 'Фонд библиотеки пополнился на 300 новых изданий, включая современную прозу и научно-популярную литературу.', 'https://example.com/news2.jpg'],
-        ['Встреча с писателем', '2025-10-05', 'Приглашаем на творческую встречу с известным автором детективных романов. Вход свободный.', 'https://example.com/news3.jpg']
+        ['Открытие нового читального зала', '2025-12-20', 'С радостью сообщаем об открытии нового читального зала на 50 мест с современным освещением и доступом к Wi-Fi.', 'images/news/1.jpg'],
+        ['Поступление новых книг', '2025-11-15', 'Фонд библиотеки пополнился на 300 новых изданий, включая современную прозу и научно-популярную литературу.', 'images/news/2.jpg'],
+        ['Встреча с писателем', '2025-10-05', 'Приглашаем на творческую встречу с известным автором детективных романов. Вход свободный.', 'images/news/3.jpg']
       ];
       const stmtN = db.prepare("INSERT INTO news (title, date, text, image) VALUES (?,?,?,?)");
       insertNews.forEach(n => stmtN.run(n));
